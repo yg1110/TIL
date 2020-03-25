@@ -19,7 +19,7 @@ module.exports = class TimeTable {
     const diffMin = time.start.getMinutes() + timeGap.getMinutes();
 
     // 차이가 1시간 이내
-    if (diffHour == 0 && diffMin <= 60) {
+    if (diffHour === 0 && diffMin <= 60) {
       this.studytime[time.start.getHours()].push({
         start: time.start.getMinutes(),
         end: diffMin,
@@ -110,17 +110,18 @@ module.exports = class TimeTable {
   }
 
   difftime(TimeData) {
+    console.log(TimeData[0].end - TimeData[0].start);
     
     // 예외처리
-    TimeData.forEach((time, index) => console.log(this.checkInTime(time, index)));
+    // TimeData.forEach((time, index) => console.log(this.checkInTime(time, index)));
 
     // 객체일 경우
-    if (!Array.isArray(TimeData)) {
-      return this.pushTime(TimeData);
-    }
+    // if (!Array.isArray(TimeData)) {
+    //   return this.pushTime(TimeData);
+    // }
 
     // 배열일 경우
-    TimeData.forEach(time => this.pushTime(time));
-    return this.studytime;
+    // TimeData.forEach(time => this.pushTime(time));
+    // return this.studytime;
   }
 };
