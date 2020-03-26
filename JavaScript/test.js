@@ -1,11 +1,6 @@
-var charsInBody = (function counter(elm) {
-  if (elm.nodeType == 3) {
-    // TEXT_NODE
-    return elm.nodeValue.length;
-  }
-  var count = 0;
-  for (var i = 0, child; (child = elm.childNodes[i]); i++) {
-    count += counter(child);
-  }
-  return count;
-})(document.body);
+describe("pow", function() {
+  it("주어진 숫자의 n 제곱", function() {
+    assert.equal(pow(2, 3), 8);
+    assert.equal(pow(3, 4), 81);
+  });
+});
