@@ -1,22 +1,74 @@
-import React from "react";
-import { HashRouter as Router, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Texts from "./components/Texts";
-import Words from "./components/Words";
-import AppShell from "./components/AppShell";
+import React, { Component } from "react";
+import WordAdd from "./WordAdd";
+import WordDisplay from "./WordDisplay";
 
-class App extends React.Component {
+import { firestore } from "./firebase";
+
+class App extends Component {
+  state = {
+    dictionary: [],
+    word: ""
+  };
+
+  componentDidMount() {
+    const dictionary = [...this.state.dictionary];
+    firestore
+      .collection("wiki")
+      .get()
+      .then(docs => {
+        docs.forEach(doc => {
+          dictionary.push({ todo: doc.data().todo, id: doc.id });
+        });
+        this.setState({ dictionary });
+      });
+  }
+
+  onClickHandler = e => {
+    e.preventDefault();
+    firestore
+      .collection("wiki")
+      .add({ todo: this.state.word })
+      .then(r => {
+        const dictionary = [
+          ...this.state.dictionary,
+          { todo: this.state.word, id: r.id }
+        ];
+        this.setState({ dictionary, word: "" });
+      });
+  };
+
+  onChangeHandler = e => {
+    this.setState({
+      word: e.target.value
+    });
+  };
+
+  deleteHandler = id => {
+    firestore
+      .collection("wiki")
+      .doc(id)
+      .delete()
+      .then(() => {
+        const dictionary = this.state.dictionary.filter(word => word.id !== id);
+        this.setState({ dictionary });
+      });
+  };
+
   render() {
     return (
-      <Router>
-        <AppShell>
-          <div>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/texts" component={Texts} />
-            <Route exact path="/words" component={Words} />
-          </div>
-        </AppShell>
-      </Router>
+      <div className="container">
+        <WordAdd
+          value={this.state.word}
+          ChangeHandler={this.onChangeHandler}
+          ClickHandler={this.onClickHandler}
+        />
+        <div>
+          <WordDisplay
+            dictionary={this.state.dictionary}
+            deleteHandler={this.deleteHandler}
+          />
+        </div>
+      </div>
     );
   }
 }
