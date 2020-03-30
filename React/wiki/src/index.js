@@ -7,6 +7,7 @@ ReactDOM.render(
   <React.StrictMode>
     <br />
     <App />
+    <br />
   </React.StrictMode>,
   document.getElementById("root")
 );
