@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "../node_modules/@types/react";
 import WordAdd from "./WordAdd";
 import WordDisplay from "./WordDisplay";
 
