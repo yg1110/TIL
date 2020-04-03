@@ -1,26 +1,30 @@
 <template>
   <v-app>
-    <br />
+    <v-app-bar app box-shadow>
+      <v-toolbar-items>
+        <v-btn text to="/">HOME</v-btn>
+        <v-btn text to="/food">음식 목록</v-btn>
+        <v-btn text to="/recipe">레시피</v-btn>
+        <v-btn text to="/meterial">재료</v-btn>
+      </v-toolbar-items>
+    </v-app-bar>
+
     <v-content>
-      <router-view />
+      <v-container bg grid-list-md text-xs-center>
+        <router-view></router-view>
+      </v-container>
     </v-content>
-    <br />
+
+    <v-footer app>
+      <!-- -->
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld";
-// import recipe from "./components/recipe";
 export default {
   name: "App",
 
-  components: {
-    // HelloWorld
-    // recipe
-  },
-
-  data: () => ({
-    //
-  })
+  data: () => ({})
 };
 </script>

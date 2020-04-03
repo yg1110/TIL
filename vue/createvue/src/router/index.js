@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-import HelloWorld from "@/components/HelloWorld";
-import Recipe from "@/components/recipe";
-import Test from "@/components/test";
+import main from "../view/main";
+import food from "../components/food";
+import recipe from "../components/recipe";
+import meterial from "../components/meterial";
 
 Vue.use(Router);
 
@@ -11,18 +12,23 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "HelloWorld",
-      component: HelloWorld
+      name: "main",
+      component: main
+    },
+    {
+      path: "/food",
+      name: "food",
+      component: food
     },
     {
       path: "/recipe",
-      name: "Recipe",
-      component: Recipe
+      name: "recipe",
+      component: recipe
     },
     {
-      path: "/test",
-      name: "Test",
-      component: Test
+      path: "/meterial",
+      name: "meterial",
+      component: meterial
     }
   ]
 });
