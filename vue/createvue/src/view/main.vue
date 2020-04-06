@@ -5,9 +5,7 @@
     <br />
     <ul>
       <li>
-        <h2>
-          총 레시피 갯수는 "537"
-        </h2>
+        <h2>총 레시피 갯수는 "537"</h2>
       </li>
       <br />
       <li>
@@ -18,15 +16,11 @@
       </li>
       <br />
       <li>
-        <h2>
-          컴포넌트는 header / content / footer로만 되어있습니다.
-        </h2>
+        <h2>컴포넌트는 header / content / footer로만 되어있습니다.</h2>
       </li>
       <br />
       <li>
-        <h2>
-          초기 디자인은 만개의 레시피 참고중입니다.
-        </h2>
+        <h2>초기 디자인은 만개의 레시피 참고중입니다.</h2>
       </li>
       <br />
     </ul>
@@ -40,9 +34,7 @@
       </li>
       <br />
       <li>
-        <h2>
-          회원가입 / 로그인
-        </h2>
+        <h2>회원가입 / 로그인</h2>
       </li>
       <br />
       <li>
@@ -51,11 +43,13 @@
       <br />
     </ul>
 
+    <input type="file" accept="image/*" capture="camera" />
+
     <!-- <food />
     <br />
     <recipe />
     <br />
-    <material /> -->
+    <material />-->
   </div>
 </template>
 <script>
