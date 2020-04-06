@@ -78,10 +78,14 @@
             >
               <span
                 style="border-radius: 2px; background: #ffd200; color: #000; display: block; font-size: 11px; padding:2px 5px; text-align: center;"
-              >회원가입 +3,000</span>
+                >회원가입 +3,000</span
+              >
             </div>
             <a href="/user/login.html">
-              <img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인" />
+              <img
+                src="https://recipe1.ezmember.co.kr/img/ico_user.png"
+                alt="로그인"
+              />
             </a>
           </li>
           <li>
@@ -95,7 +99,10 @@
             >
               <img src="https://recipe1.ezmember.co.kr/img/tmn_write.png" />
             </a>
-            <div class="write_layer document_common_layer" style="display:none;left:-230px;">
+            <div
+              class="write_layer document_common_layer"
+              style="display:none;left:-230px;"
+            >
               <a href="/inbox/insert.html" class="w_layer2">
                 <img src="https://recipe1.ezmember.co.kr/img/btn_write1.gif" />
                 <span>직접 등록하기</span>
@@ -145,7 +152,12 @@
             <a href="/recipe/list.html" to="/recipe">레시피</a>
           </li>
           <li>
-            <a href="https://www.10000recipe.com/shop/index.html" target="_blank" to="/food">음식목록</a>
+            <a
+              href="https://www.10000recipe.com/shop/index.html"
+              target="_blank"
+              to="/food"
+              >음식목록</a
+            >
           </li>
           <li>
             <a href="/talk/list.html" to="/meterial">재료</a>
@@ -156,226 +168,11 @@
   </div>
 </template>
 
-<style scoped>
-.gnb_top_wrap {
-  background: #fff;
-  width: 100%;
-  height: 112px;
-}
-.gnb_top {
-  width: 1240px;
-  margin: 0 auto;
-  padding: 16px 0 0 176px;
-}
-.gnb_top h1 {
-  margin: 0 30px 0 0;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.gnb_search {
-  width: 450px;
-  display: inline-block;
-  padding-top: 12px;
-}
-.gnb_search .btn {
-  background: #74b243;
-  border: 1px solid #68a13a;
-  height: 38px;
-}
-.gnb_search .btn span {
-  color: #fff;
-  font-size: 22px;
-}
-.gnb_search .form-control {
-  border: 1px solid #ccc;
-  background: #fbfbfb;
-  height: 38px;
-}
-.gnb_search_word {
-  padding-top: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-.gnb_search_word ul {
-  display: inline-block;
-  padding: 1px 0 0 6px;
-  width: 381px;
-}
-.gnb_search_word li {
-  display: inline-block;
-  list-style: none;
-  padding: 0;
-  border-right: 1px solid #ddd;
-  padding: 0 9px;
-  font-size: 14px;
-  line-height: 1;
-}
-.gnb_search_word li:last-child {
-  border-right: 0;
-}
-.gnb_search_word li a {
-  color: #000;
-}
-.gnb_search_btn {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.gnb_search_btn a {
-  float: left;
-}
-
-.gnb_right {
-  display: inline-block;
-  padding: 16px 0 0 50px;
-  vertical-align: top;
-  position: relative;
-}
-.gnb_right li {
-  list-style: none;
-  padding: 0 3px;
-  display: inline-block;
-}
-.gnb_right li a {
-  height: 30px;
-}
-.gnb_right li a img {
-  width: 44px;
-  border-radius: 50%;
-}
-.gnb_right .mem_layer {
-  position: absolute;
-  left: 22px;
-  top: 51px;
-  width: 182px;
-  z-index: 1000000;
-}
-.gnb_right .mem_layer_m a {
-  height: auto;
-}
-.gnb_right .write_layer {
-  position: absolute;
-  right: -4px;
-  top: 50px;
-  width: 372px;
-}
-.gnb_right .write_layer a {
-  height: auto;
-}
-
-.gnb_nav ul {
-  width: 1240px;
-  margin: 0 auto;
-  padding: 9px 30px 0;
-  text-align: center;
-}
-.gnb_nav ul li {
-  list-style: none;
-  padding: 0;
-  width: 1%;
-  display: table-cell;
-}
-.gnb_nav ul li a {
-  display: block;
-  font-size: 18px;
-  margin: 0 8px;
-  color: #fff;
-}
-.gnb_nav ul li a.active {
-  color: #ffff00;
-}
-.gnb_nav ul li a:hover {
-  color: #ffff00;
-}
-
-.gnb_chef .gnb_top_wrap {
-  height: 96px;
-}
-.gnb_chef .gnb_top {
-  padding: 13px 0 0 20px;
-}
-.gnb_chef .gnb_top .gnb_right {
-  float: right;
-}
-.gnb_chef .gnb_top h1 span {
-  border-left: 1px solid #ccc;
-  padding-left: 14px;
-  margin-left: 14px;
-  color: #666;
-  font-size: 30px;
-  font-weight: bold;
-  line-height: 1;
-  display: inline-block;
-}
-.gnb_chef .gnb_top .gnb_right li.tel {
-  font-size: 24px;
-  color: #000;
-  vertical-align: middle;
-  padding-right: 12px;
-  padding-top: 4px;
-}
-.gnb_chef .gnb_top .gnb_right li.tel img {
-  padding-right: 4px;
-}
-
-.gnb_nav {
-  background: url(//recipe1.ezmember.co.kr/img/gnb_bg.gif) left top repeat-x;
-  height: 46px;
-  width: 100%;
-  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  margin-bottom: 16px;
-}
-.gnb_nav ul {
-  width: 1240px;
-  margin: 0 auto;
-  padding: 9px 30px 0;
-  text-align: center;
-}
-.gnb_nav ul li {
-  list-style: none;
-  padding: 0;
-  width: 1%;
-  display: table-cell;
-}
-.gnb_nav ul li a {
-  display: block;
-  font-size: 18px;
-  margin: 0 8px;
-  color: #fff;
-}
-.gnb_nav ul li a.active {
-  color: #ffff00;
-}
-.gnb_nav ul li a:hover {
-  color: #ffff00;
-}
-
-.gnb_chef .gnb_nav {
-  background: #667180;
-}
-.gnb_chef .gnb_nav ul li:last-child {
-  background: none;
-}
-.gnb_chef .gnb_nav ul li a {
-  display: block;
-  font-size: 18px;
-  margin: 0 8px;
-  color: #cdcdd1;
-}
-.gnb_chef .gnb_nav ul li a.active {
-  color: #fff;
-}
-.gnb_chef .gnb_nav ul li a:hover {
-  color: #fff;
-}
-</style>
-
 <script>
+import style from "../assets/TopBar/style.css";
+
 export default {
   name: "TopBar",
-
   data: () => ({
     curRtword: 2
   }),

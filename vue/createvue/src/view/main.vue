@@ -1,6 +1,8 @@
 <template>
   <div>
     <br />
+    <br />
+    <category />
     <h2>현재 상황</h2>
     <br />
     <ul>
@@ -56,10 +58,12 @@
 // import food from "../components/food";
 // import recipe from "../components/recipe";
 // import material from "../components/meterial";
+import category from "../components/category";
 
 export default {
   name: "foodmain",
   components: {
+    category
     // food,
     // recipe,
     // material
