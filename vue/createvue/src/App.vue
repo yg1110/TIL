@@ -9,7 +9,7 @@
         <v-btn text to="/meterial">재료</v-btn>
       </v-toolbar-items>
     </v-app-bar>-->
-    <category />
+
     <v-content>
       <v-container bg grid-list-md text-xs-center>
         <router-view></router-view>
