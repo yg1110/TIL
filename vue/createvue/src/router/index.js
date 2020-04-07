@@ -4,6 +4,7 @@ import main from "../view/main";
 import food from "../components/food";
 import recipe from "../components/recipe";
 import meterial from "../components/meterial";
+import test from "../components/test";
 
 Vue.use(Router);
 
@@ -29,6 +30,12 @@ export default new Router({
       path: "/meterial",
       name: "meterial",
       component: meterial
+    },
+    {
+      path: "/test",
+      name: "test",
+      component: test
+
     }
   ]
 });
