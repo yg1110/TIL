@@ -7,23 +7,33 @@ let truck_weights = [
 ];
 
 function solution(bridge_length, weight, truck_weights) {
-  var answer = 0;
-  for (let i = 0; i < truck_weights.length; i++) {
-    let sum = truck_weights[i];
-    let cnt = 0;
-    for (let j = i + 1; j < truck_weights.length; j++) {
-      sum += truck_weights[j];
-      if (sum > weight) {
-        answer += cnt === 1 ? cnt * bridge_length : cnt * bridge_length - cnt;
-        i = j;
-        console.log(answer);
-        break;
-      }
-      cnt++;
+  let answer = 0;
+  let MoveTruck = [];
+  let finishTruck = [];
+  let BridgeWeight = 0;
+
+  while (MoveTruck.length > 0 || truck_weights.length > 0) {
+    answer++;
+    let now = truck_weights[0];
+    if (BridgeWeight + now <= weight) {
+      BridgeWeight += now;
+      MoveTruck.push(0);
+      console.log(MoveTruck);
+      truck_weights.shift();
     }
-    answer += cnt * bridge_length;
-    console.log(answer);
+
+    MoveTruck = MoveTruck.map(v => {
+      return v + 1;
+    });
+
+    if (MoveTruck[0] > bridge_length) {
+      BridgeWeight -= now;
+      finishTruck.push(MoveTruck.shift());
+    }
+    // console.log(answer, finishTruck, MoveTruck, truck_weights);
   }
   return answer;
 }
 console.log(solution(bridge_length[0], weight[0], truck_weights[0]));
+// console.log(solution(bridge_length[1], weight[1], truck_weights[1]));
+// console.log(solution(bridge_length[2], weight[2], truck_weights[2]));
