@@ -1,34 +1,37 @@
 function solution(tickets) {
-  var answer = [];
-  let di = [-1, 1, 0, 0];
-  let dj = [0, 0, -1, 1];
+  let ticket = tickets.reduce((arr, v) => {
+    if (arr[v[0]] === undefined) {
+      arr[v[0]] = [v[1]];
+    } else {
+      arr[v[0]].push(v[1]);
+    }
+    return arr;
+  }, []);
+  console.log(ticket);
 
-  let queue = [];
-  let visit = null;
-  let word = [];
-  for (let i = 0; i < tickets.length; i++) {
-    for (let j = 0; j < tickets[i].length; j++) {
-      visit = [...tickets];
-      queue.push({ i: i, j: j, value: tickets[i][j] });
-      visit[i][j] = true;
-      bfs(tickets.length, tickets[i].length);
+  let answer = [];
+  let arr = null;
+  Object.keys(ticket).forEach(v1 => {
+    arr = [];
+    arr.push(v1);
+    ticket[v1].forEach(v2 => {
+      arr.push(v2);
+      arr.push(ticket[v2]);
+      dfs(ticket[v2]);
+    });
+    answer.push(arr);
+  });
+
+  function dfs(v1) {
+    if (ticket[v1] !== undefined) {
+      ticket[v1].forEach(v2 => {
+        arr.push(v2);
+        arr.push(ticket[v2]);
+        dfs(ticket[v2]);
+      });
     }
   }
 
-  function bfs(N, M) {
-    while (queue.length !== 0) {
-      let now = queue.shift();
-      console.log(now);
-      for (let d = 0; d < 4; d++) {
-        let ni = now.i + di[d];
-        let nj = now.j + dj[d];
-        if (ni >= 0 && ni < N && nj >= 0 && nj < M && visit[ni][nj] !== true) {
-          queue.push({ i: ni, j: nj, value: tickets[ni][nj] });
-          visit[ni][nj] = true;
-        }
-      }
-    }
-  }
   return answer;
 }
 
