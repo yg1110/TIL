@@ -1,0 +1,23 @@
+.App {
+  background-color: #282c34;
+  widows: 100vw;
+  height: 100vh;
+  padding: 20px;
+}
+
+.App div {
+  justify-content: center;
+  display: flex;
+  margin: 20px;
+}
+
+.inputForm input {
+  margin-right: 10px;
+}
+
+.todoList {
+  display: inline-block;
+}
+.addButton {
+  /* color: white; */
+}
