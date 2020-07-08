@@ -1,16 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef} from "react";
 import "./App.css";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [todoInput, setTodoInput] = useState("");
   const inputRef = useRef(null);
+  const todoListRef = useRef([]);
 
   const addTodoList = () => {
-    const input = document.querySelector(".todoInput");
-
+    if(todoInput.length === 0){
+      return;
+    }
     setTodoList(prevState => {
-      return [...prevState, input.value];
+      return [...prevState, todoInput];
     });
     setTodoInput("");
     inputRef.current.focus();
@@ -27,8 +29,10 @@ function App() {
   };
 
   const updateTodoList = i => {
-    const todoListValue = document.querySelector(".todoList" + i);
-    const updateTodo = prompt("수정할 값", todoListValue.innerHTML);
+    const updateTodo = prompt("수정할 값", todoListRef.current[i].innerHTML);
+    if(updateTodo === "" || todoListRef.current[i].innerHTML === updateTodo){
+      return;
+    }
     let newTodoList = [...todoList];
     newTodoList.splice(i, 1, updateTodo);
     setTodoList(newTodoList);
@@ -48,8 +52,8 @@ function App() {
       </div>
       {todoList.map((v, i) => {
         return (
-          <div key={v + i}>
-            <div className={"todoList" + i}>{v}</div>
+          <div key={v + i} className="todoList">
+            <div ref={el => todoListRef.current[i] = el}>{v}</div>
             <button onClick={() => updateTodoList(i)}>수정</button>
             <button onClick={() => deleteTodoList(i)}>삭제</button>
           </div>
@@ -58,5 +62,5 @@ function App() {
     </div>
   );
 }
-
+ 
 export default App;
