@@ -15,6 +15,20 @@
   margin-right: 10px;
 }
 
-.todoList {
+.todoList, .logList {
   color:white;
+}
+
+.listContent{
+  display: flex;
+}
+
+.todo {
+  flex-direction: column;
+  width: 50%;
+}
+
+.log {
+  flex-direction: column;
+  width: 50%;
 }
