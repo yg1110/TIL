@@ -1,51 +1,19 @@
-import React, {
-  useState,
-  useRef,
-  memo,
-  useMemo,
-  useCallback,
-  useReducer,
-  useEffect
-} from "react";
+import React, { useState, useRef, memo, useMemo, useCallback } from "react";
 import "./App.css";
 import TodoList from "./TodoList";
 import LogList from "./LogList";
-import ReducerButton from "./ReducerButton";
+
 function todoCount(todoList) {
   console.log("할일 갯수를 세는중...");
   return todoList.length;
 }
 
-export const SET_TODOLIST = "SET_TODOLIST";
-const reducer = (state, action) => {
-  switch (action.type) {
-    case SET_TODOLIST:
-      const todoListData = [...state.todoList];
-      return {
-        ...state,
-        todoListData,
-        todoList: action.todoList
-      };
-    default:
-      return state;
-  }
-};
-
 const App = memo(() => {
   const [todoList, setTodoList] = useState([]);
   const [logList, setLogList] = useState([]);
   const [todoInput, setTodoInput] = useState("");
-  const [state, dispatch] = useReducer(reducer, { todoList: todoList });
   const inputRef = useRef(null);
   const todoListRef = useRef([]);
-
-  useEffect(() => {
-    if (state.todoList.length !== 0) {
-      setTodoList(prevState => {
-        return [...prevState, state.todoList];
-      });
-    }
-  }, [state]);
 
   // useEffect(() => {
   //   const todoList = JSON.parse(localStorage.getItem("todoList"));
@@ -68,6 +36,7 @@ const App = memo(() => {
   const count = useMemo(() => todoCount(todoList), [todoList]);
 
   const addTodoList = useCallback(() => {
+    console.log("add");
     if (todoInput.length === 0) {
       return;
     }
@@ -152,10 +121,6 @@ const App = memo(() => {
       <div className="content">
         <div>할 일의 수 : {count}</div>
       </div>
-      <div className="content">
-        <ReducerButton dispatch={dispatch} />
-      </div>
-      {state.todoList}
     </div>
   );
 });

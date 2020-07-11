@@ -11,50 +11,50 @@ class App extends Component {
     todoInput: "",
     todoList: [],
     logList: []
-  }
+  };
 
   componentCleanup() {
     localStorage.setItem("todoList", JSON.stringify(this.state.todoList));
     localStorage.setItem("logList", JSON.stringify(this.state.logList));
   }
 
-  componentDidMount(){
-    window.addEventListener('beforeunload', this.componentCleanup);
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.componentCleanup);
     const todoList = JSON.parse(localStorage.getItem("todoList"));
     const logList = JSON.parse(localStorage.getItem("logList"));
 
-    if(todoList !== null){
+    if (todoList !== null) {
       this.setState({
         todoList: todoList
       });
     }
-    
-    if(logList !== null){
+
+    if (logList !== null) {
       this.setState({
         logList: logList
       });
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.componentCleanup();
-    window.removeEventListener('beforeunload', this.componentCleanup);
+    window.removeEventListener("beforeunload", this.componentCleanup);
   }
-  
-  addTodoList = (e) => {
-    if(this.state.todoInput.length === 0){
+
+  addTodoList = e => {
+    if (this.state.todoInput.length === 0) {
       return;
     }
     this.setState({
       todoList: [...this.state.todoList, this.state.todoInput],
       logList: [...this.state.logList, "ADD " + this.state.todoInput],
       todoInput: ""
-    })
+    });
     this.inputRef.focus();
   };
 
   onChange = e => {
-    this.setState({todoInput: e.target.value});
+    this.setState({ todoInput: e.target.value });
   };
 
   deleteTodoList = i => {
@@ -62,30 +62,33 @@ class App extends Component {
     const del = deletetodo.splice(i, 1);
     this.setState({
       todoList: deletetodo,
-      logList: [...this.state.logList, "DELETE " + del],
+      logList: [...this.state.logList, "DELETE " + del]
     });
   };
 
-  onRefInput = (c) => {
+  onRefInput = c => {
     this.inputRef = c;
-  }
+  };
 
   todoListRef = [];
-  onRefTodoList = (i) => (c) => {
+  onRefTodoList = i => c => {
     this.todoListRef[i] = c;
-  }
+  };
 
   updateTodoList = i => {
     const oldTodo = this.state.todoList[i];
     const updateTodo = prompt("수정할 값", this.todoListRef[i].innerHTML);
-    if(updateTodo === "" || this.todoListRef[i].innerHTML === updateTodo){
+    if (updateTodo === "" || this.todoListRef[i].innerHTML === updateTodo) {
       return;
     }
     let newTodoList = [...this.state.todoList];
     newTodoList.splice(i, 1, updateTodo);
     this.setState({
       todoList: newTodoList,
-      logList: [...this.state.logList, "UPDATE " + oldTodo + " -> " + updateTodo],
+      logList: [
+        ...this.state.logList,
+        "UPDATE " + oldTodo + " -> " + updateTodo
+      ]
     });
   };
 
@@ -120,7 +123,7 @@ class App extends Component {
                 <div className="logList" key={v + i}>
                   {v}
                 </div>
-              )
+              );
             })}
           </div>
         </div>
