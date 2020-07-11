@@ -15,11 +15,12 @@
   margin-right: 10px;
 }
 
-.todoList, .logList {
-  color:white;
+.todoList,
+.logList {
+  color: white;
 }
 
-.listContent{
+.content {
   display: flex;
 }
 
@@ -31,4 +32,9 @@
 .log {
   flex-direction: column;
   width: 50%;
+}
+
+.saveButton {
+  display: flex;
+  justify-content: center;
 }

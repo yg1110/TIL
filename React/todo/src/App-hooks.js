@@ -1,33 +1,43 @@
-import React, { useState, useRef, useEffect} from "react";
+import React, { useState, useRef, memo, useMemo, useCallback } from "react";
 import "./App.css";
+import TodoList from "./TodoList";
+import LogList from "./LogList";
 
-function App() {
+function todoCount(todoList) {
+  console.log("할일 갯수를 세는중...");
+  return todoList.length;
+}
+
+const App = memo(() => {
   const [todoList, setTodoList] = useState([]);
   const [logList, setLogList] = useState([]);
   const [todoInput, setTodoInput] = useState("");
   const inputRef = useRef(null);
   const todoListRef = useRef([]);
 
-  useEffect(() => {
-    const todoList = JSON.parse(localStorage.getItem("todoList"));
-    const logList = JSON.parse(localStorage.getItem("logList"));
+  // useEffect(() => {
+  //   const todoList = JSON.parse(localStorage.getItem("todoList"));
+  //   const logList = JSON.parse(localStorage.getItem("logList"));
 
-    if(todoList !== null){
-      setTodoList(todoList);
-    }
-    
-    if(logList !== null){
-      setLogList(logList);
-    }
-  },[])
+  //   if (todoList !== null) {
+  //     setTodoList(todoList);
+  //   }
 
-  useEffect(() => {
-    localStorage.setItem("todoList", JSON.stringify(todoList));
-    localStorage.setItem("logList", JSON.stringify(logList));
-  },[todoList, logList])
+  //   if (logList !== null) {
+  //     setLogList(logList);
+  //   }
+  // }, []);
 
-  const addTodoList = () => {
-    if(todoInput.length === 0){
+  // useEffect(() => {
+  //   localStorage.setItem("todoList", JSON.stringify(todoList));
+  //   localStorage.setItem("logList", JSON.stringify(logList));
+  // }, [todoList, logList]);
+
+  const count = useMemo(() => todoCount(todoList), [todoList]);
+
+  const addTodoList = useCallback(() => {
+    console.log("add");
+    if (todoInput.length === 0) {
       return;
     }
     setTodoList(prevState => {
@@ -35,36 +45,49 @@ function App() {
     });
     setLogList(logList => {
       return [...logList, "ADD " + todoInput];
-    })
+    }, []);
     setTodoInput("");
     inputRef.current.focus();
-  };
+  }, [todoInput]);
 
-  const onChange = e => {
+  const onChange = useCallback(e => {
     setTodoInput(e.target.value);
-  };
+  }, []);
 
-  const deleteTodoList = i => {
-    let deletetodo = [...todoList];
-    setLogList(logList => {
-      return [...logList, "DELETE " + todoList[i]];
-    })
-    deletetodo.splice(i, 1);
-    setTodoList(deletetodo);
-  };
+  const deleteTodoList = useCallback(
+    i => {
+      let deletetodo = [...todoList];
+      setLogList(logList => {
+        return [...logList, "DELETE " + todoList[i]];
+      });
+      deletetodo.splice(i, 1);
+      setTodoList(deletetodo);
+    },
+    [todoList]
+  );
 
-  const updateTodoList = i => {
-    const oldTodo = todoList[i];
-    const updateTodo = prompt("수정할 값", todoListRef.current[i].innerHTML);
-    if(updateTodo === "" || todoListRef.current[i].innerHTML === updateTodo){
-      return;
-    }
-    let newTodoList = [...todoList];
-    newTodoList.splice(i, 1, updateTodo);
-    setTodoList(newTodoList);
-    setLogList(logList => {
-      return [...logList, "UPDATE " + oldTodo + " -> " + updateTodo];
-    });
+  const updateTodoList = useCallback(
+    i => {
+      const oldTodo = todoList[i];
+      const updateTodo = prompt("수정할 값", todoListRef.current[i].innerHTML);
+      if (
+        updateTodo === "" ||
+        todoListRef.current[i].innerHTML === updateTodo
+      ) {
+        return;
+      }
+      let newTodoList = [...todoList];
+      newTodoList.splice(i, 1, updateTodo);
+      setTodoList(newTodoList);
+      setLogList(logList => {
+        return [...logList, "UPDATE " + oldTodo + " -> " + updateTodo];
+      });
+    },
+    [todoList]
+  );
+
+  const saveTodoList = e => {
+    console.log(e.target);
   };
 
   return (
@@ -79,30 +102,27 @@ function App() {
         ></input>
         <button onClick={addTodoList}>추가</button>
       </div>
-      <div className="listContent">
+      <div className="content">
         <div className="todo">
-          {todoList.map((v, i) => {
-            return (
-              <div key={v + i} className="todoList">
-                <div ref={el => todoListRef.current[i] = el}>{v}</div>
-                <button onClick={() => updateTodoList(i)}>수정</button>
-                <button onClick={() => deleteTodoList(i)}>삭제</button>
-              </div>
-            );
-          })}
+          <TodoList
+            todoList={todoList}
+            todoListRef={todoListRef}
+            updateTodoList={updateTodoList}
+            deleteTodoList={deleteTodoList}
+          />
         </div>
         <div className="log">
-          {logList.map((v, i) => {
-            return (
-              <div className="logList" key={v + i}>
-                {v}
-              </div>
-            )
-          })}
+          <LogList logList={logList} />
         </div>
+      </div>
+      <div className="content">
+        <button onClick={saveTodoList}>현재내용 저장하기</button>
+      </div>
+      <div className="content">
+        <div>할 일의 수 : {count}</div>
       </div>
     </div>
   );
-}
- 
+});
+
 export default App;
