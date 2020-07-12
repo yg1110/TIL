@@ -1,51 +1,77 @@
-import React, {
-  useState,
-  useRef,
-  memo,
-  useMemo,
-  useCallback,
-  useReducer,
-  useEffect
-} from "react";
+import React, { useRef, memo, useMemo, useCallback, useReducer } from "react";
 import "./App.css";
 import TodoList from "./TodoList";
 import LogList from "./LogList";
-import ReducerButton from "./ReducerButton";
+import CcontextAPITest from "./CcontextAPITest";
 function todoCount(todoList) {
   console.log("할일 갯수를 세는중...");
   return todoList.length;
 }
 
-export const SET_TODOLIST = "SET_TODOLIST";
+export const CHANGE_VALUE = "CHANGE_VALUE";
+export const CLEAR_VALUE = "CLEAR_VALUE";
+export const ADD_TODOLIST = "ADD_TODOLIST";
+export const DELETE_TODOLIST = "DELETE_TODOLIST";
+export const UPDATE_TODOLIST = "UPDATE_TODOLIST";
+export const ADD_LOGLIST = "ADD_LOGLIST";
+
 const reducer = (state, action) => {
   switch (action.type) {
-    case SET_TODOLIST:
-      const todoListData = [...state.todoList];
+    case CHANGE_VALUE: {
       return {
         ...state,
-        todoListData,
-        todoList: action.todoList
+        todoInput: action.value
       };
+    }
+    case CLEAR_VALUE: {
+      return {
+        ...state,
+        todoInput: ""
+      };
+    }
+    case ADD_TODOLIST: {
+      return {
+        ...state,
+        todoList: [...state.todoList, action.todo]
+      };
+    }
+    case DELETE_TODOLIST: {
+      return {
+        ...state,
+        todoList: state.todoList.filter((v, i) => i !== action.i)
+      };
+    }
+    case UPDATE_TODOLIST: {
+      return {
+        ...state,
+        todoList: action.newTodoList
+      };
+    }
+    case ADD_LOGLIST: {
+      return {
+        ...state,
+        logList: [...state.logList, action.value]
+      };
+    }
+
     default:
       return state;
   }
 };
 
+const initialState = {
+  todoList: [],
+  logList: [],
+  todoInput: ""
+};
+
+export const TodoDispatch = React.createContext(null);
+
 const App = memo(() => {
-  const [todoList, setTodoList] = useState([]);
-  const [logList, setLogList] = useState([]);
-  const [todoInput, setTodoInput] = useState("");
-  const [state, dispatch] = useReducer(reducer, { todoList: todoList });
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { todoList, logList, todoInput } = state;
   const inputRef = useRef(null);
   const todoListRef = useRef([]);
-
-  useEffect(() => {
-    if (state.todoList.length !== 0) {
-      setTodoList(prevState => {
-        return [...prevState, state.todoList];
-      });
-    }
-  }, [state]);
 
   // useEffect(() => {
   //   const todoList = JSON.parse(localStorage.getItem("todoList"));
@@ -68,31 +94,25 @@ const App = memo(() => {
   const count = useMemo(() => todoCount(todoList), [todoList]);
 
   const addTodoList = useCallback(() => {
+    console.log(todoInput);
     if (todoInput.length === 0) {
       return;
     }
-    setTodoList(prevState => {
-      return [...prevState, todoInput];
-    });
-    setLogList(logList => {
-      return [...logList, "ADD " + todoInput];
-    }, []);
-    setTodoInput("");
+    dispatch({ type: ADD_TODOLIST, todo: todoInput });
+    dispatch({ type: ADD_LOGLIST, value: "ADD " + todoInput });
+    dispatch({ type: CLEAR_VALUE });
+
     inputRef.current.focus();
   }, [todoInput]);
 
   const onChange = useCallback(e => {
-    setTodoInput(e.target.value);
+    dispatch({ type: CHANGE_VALUE, value: e.target.value });
   }, []);
 
   const deleteTodoList = useCallback(
     i => {
-      let deletetodo = [...todoList];
-      setLogList(logList => {
-        return [...logList, "DELETE " + todoList[i]];
-      });
-      deletetodo.splice(i, 1);
-      setTodoList(deletetodo);
+      dispatch({ type: ADD_LOGLIST, value: "DELETE " + todoList[i] });
+      dispatch({ type: DELETE_TODOLIST, i: i });
     },
     [todoList]
   );
@@ -109,17 +129,14 @@ const App = memo(() => {
       }
       let newTodoList = [...todoList];
       newTodoList.splice(i, 1, updateTodo);
-      setTodoList(newTodoList);
-      setLogList(logList => {
-        return [...logList, "UPDATE " + oldTodo + " -> " + updateTodo];
+      dispatch({ type: UPDATE_TODOLIST, newTodoList: newTodoList });
+      dispatch({
+        type: ADD_LOGLIST,
+        value: "UPDATE " + oldTodo + " -> " + updateTodo
       });
     },
     [todoList]
   );
-
-  const saveTodoList = e => {
-    console.log(e.target);
-  };
 
   return (
     <div className="App">
@@ -136,7 +153,7 @@ const App = memo(() => {
       <div className="content">
         <div className="todo">
           <TodoList
-            todoList={todoList}
+            todoList={state.todoList}
             todoListRef={todoListRef}
             updateTodoList={updateTodoList}
             deleteTodoList={deleteTodoList}
@@ -147,13 +164,12 @@ const App = memo(() => {
         </div>
       </div>
       <div className="content">
-        <button onClick={saveTodoList}>현재내용 저장하기</button>
-      </div>
-      <div className="content">
         <div>할 일의 수 : {count}</div>
       </div>
       <div className="content">
-        <ReducerButton dispatch={dispatch} />
+        <TodoDispatch.Provider value={dispatch}>
+          <CcontextAPITest />
+        </TodoDispatch.Provider>
       </div>
       {state.todoList}
     </div>
