@@ -25,18 +25,46 @@
         <section class="gallery">
             <ul>
                 <li>
-                    <img src="https://source.unsplash.com/hclTKUfuf1U" alt="비행기">
+                    <img src="https://source.unsplash.com/hclTKUfuf1U" alt="비행기" onclick="openModal()">
                 </li>
                 <li>
-                    <img src="https://source.unsplash.com/AlEyuIKuSmc" alt="파도">
+                    <img src="https://source.unsplash.com/AlEyuIKuSmc" alt="파도" onclick="openModal()">
                 </li>
                 <li>
-                    <img src="https://source.unsplash.com/DOExRUPPwYY" alt="마카롱">
+                    <img src="https://source.unsplash.com/DOExRUPPwYY" alt="마카롱" onclick="openModal()">
                 </li>
                 <li>
-                    <img src="https://source.unsplash.com/a6x7YPiNxwI" alt="빌딩">
+                    <img src="https://source.unsplash.com/a6x7YPiNxwI" alt="빌딩" onclick="openModal()">
                 </li>
             </ul>
+        </section>
+
+        <section>
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Some text in the Modal..</p>
+                </div>
+            </div>
+
+            <script>
+                const modal = document.getElementById("modal");
+                const span = document.querySelector(".close")
+
+                function openModal() {
+                    modal.style.display = "block";
+                }
+
+                span.onclick = function () {
+                    modal.style.display = "none";
+                }
+
+                window.onclick = function (event) {
+                    if (event.target === modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
         </section>
         <footer>
             <p>Copyright &copy; 2020 YG.</p>
