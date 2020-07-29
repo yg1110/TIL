@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,900");
 
+@font-face {
+  font-family: "ImcreSoojin";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.3/ImcreSoojin.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 *,
 *:before,
 *:after {
@@ -333,29 +341,53 @@ img {
 
 .projectDesciption {
   width: 100%;
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
 }
-.useLibrary ul {
-  display: flex;
-  justify-content: space-between;
+
+.projectDesciption li {
+  font-family: "ImcreSoojin";
+
+  width: 45%;
+  margin: 10px;
+  text-align: center;
+  display: inline-block;
+  list-style: initial;
 }
-.useLibrary li {
-  margin: 20px;
+
+.projectContent {
+  display: flex;
+}
+
+.useLibrary {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+}
+
+.useLibrary-body {
   display: inline-block;
 }
 
-.video {
+.people {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  width: 33%;
+}
+
+.people p {
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+}
+
+.video {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
 }
 
 .videoContent {
-  padding: 20px;
-  border: solid 1px black;
+  margin: 20px;
+  align-items: center;
 }
 
 .videoContent i {
@@ -383,4 +415,66 @@ img {
   width: 90%;
   display: inline-block;
   border-bottom: 1px solid #e2e2e2;
+}
+
+.button {
+  border: solid 2px #444;
+  background: #16a085;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  color: #fff;
+  box-shadow: inset 2px 2px 0 #fff, 0 8px 10px -4px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.action-button {
+  position: relative;
+  padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+  float: left;
+  border-radius: 3px;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  color: #fff;
+  text-decoration: none;
+}
+.action-button:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  border-bottom: 1px solid;
+}
+
+.animate {
+  transition: all 0.1s;
+  -webkit-transition: all 0.1s;
+}
+
+.blue {
+  background-color: #3498db;
+  border-bottom: 5px solid #2980b9;
+  text-shadow: 0px -2px #2980b9;
+}
+
+.red {
+  background-color: #e74c3c;
+  border-bottom: 5px solid #c0392b;
+  text-shadow: 0px -2px #c0392b;
+}
+
+.green {
+  background-color: #2ecc71;
+  border-bottom: 5px solid #27ae60;
+  text-shadow: 0px -2px #27ae60;
+}
+
+.yellow {
+  background-color: #f1c40f;
+  border-bottom: 5px solid #f39c12;
+  text-shadow: 0px -2px #f39c12;
+}
+
+.videobutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
