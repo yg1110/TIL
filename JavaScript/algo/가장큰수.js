@@ -1,54 +1,49 @@
 const numbers = [
   [6, 10, 2],
-  [3, 30, 34, 5, 9]
+  [3, 30, 34, 5, 9],
+  [10, 101],
+  [1, 11, 111, 1111],
+  [0, 0, 0, 0, 0, 0]
 ];
 
+const combination = (use, idx) => {
+  if (idx === use.length) {
+    console.log(use);
+    const arr = numbers[0].filter((v, i) => use[i]);
+    console.log(arr);
+    return;
+  }
+
+  use[idx] = true;
+  combination(use, idx + 1);
+  use[idx] = false;
+  combination(use, idx + 1);
+};
+
 function solution(numbers) {
-  return (arr = numbers.sort((a, b) => {
-    // String(b)[0] - String(a)[0];
+  let answer = "0";
 
-    const word1 = Array.from(String(a));
-    const word2 = Array.from(String(b));
+  const permitation = (use, arr, idx) => {
+    if (idx === use.length) {
+      const number = arr.reduce((a, c) => (a += c), "");
+      if (answer < number) {
+        answer = number;
+      }
+    }
+    use.forEach((v, i) => {
+      if (!v) {
+        arr.push(numbers[i]);
+        use[i] = true;
+        permitation(use, arr, idx + 1);
+        use[i] = false;
+        arr.pop();
+      }
+    });
+  };
 
-    console.log(word1);
+  permitation(Array(numbers.length).fill(false), [], 0);
 
-    let result = 0;
-    word1.length > word2.length
-      ? word1.some((v, i) => {
-          if (word2[i] === undefined) {
-            reuslt = 0;
-            return true;
-          }
-          if (v !== word2[i]) {
-            if (Number(v) > Number(word2[i])) {
-              result = 0;
-            } else {
-              result = 1;
-            }
-            return true;
-          } else {
-            return false;
-          }
-        })
-      : word2.map((v, i) => {
-          if (word1[i] === undefined) {
-            reuslt = 1;
-            return true;
-          }
-          if (v !== word1[i]) {
-            if (Number(v) > Number(word1[i])) {
-              result = 1;
-            } else {
-              result = 0;
-            }
-            return true;
-          } else {
-            return false;
-          }
-        });
-
-    return result === 0 ? -1 : 1;
-  }));
+  return answer;
 }
 
 console.log(solution(numbers[1]));

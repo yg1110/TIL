@@ -1,4 +1,4 @@
-import React from "react";
+import React from "../node_modules/@types/react";
 import "./App.scss";
 import Button from "./components/Button";
 

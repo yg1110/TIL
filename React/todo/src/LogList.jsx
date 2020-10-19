@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo } from "../node_modules/@types/react";
 
 const LogList = memo(({ logList }) => {
   return (
