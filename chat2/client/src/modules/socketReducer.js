@@ -1,6 +1,8 @@
 const SET_WEBSOCKET = 'socket/SET_WEBSOCKET';
 
-export const setWebSocket = websocket => ({type: SET_WEBSOCKET, websocket });
+export const setWebSocket = webSocket => {
+  return { type: SET_WEBSOCKET, webSocket }
+};
 
 const initialState = {
   webSocket: null,
@@ -11,7 +13,7 @@ export default function socketReducer(state = initialState, action) {
     case SET_WEBSOCKET:
       return {
         ...state,
-        webSocket: action.websocket
+        webSocket: action.webSocket
       };
     default:
       return state;

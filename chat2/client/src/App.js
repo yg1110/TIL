@@ -5,9 +5,7 @@ import { setWebSocket} from './modules/socketReducer';
 function App() {
   let ws = null;
   const dispatch = useDispatch();
-  const socket = useSelector(state => ({
-    webSocket: state.socketReducer.webSocket
-  }));
+  const socket = useSelector(state => ({webSocket: state.socketReducer.webSocket}));
 
 
   const onWebSocket = (callback) => {
