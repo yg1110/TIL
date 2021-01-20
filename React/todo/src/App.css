@@ -1,0 +1,40 @@
+.App {
+  background-color: #282c34;
+  widows: 100vw;
+  height: 100vh;
+  padding: 20px;
+}
+
+.App div {
+  justify-content: center;
+  display: flex;
+  margin: 20px;
+}
+
+.inputForm input {
+  margin-right: 10px;
+}
+
+.todoList,
+.logList {
+  color: white;
+}
+
+.content {
+  display: flex;
+}
+
+.todo {
+  flex-direction: column;
+  width: 50%;
+}
+
+.log {
+  flex-direction: column;
+  width: 50%;
+}
+
+.saveButton {
+  display: flex;
+  justify-content: center;
+}

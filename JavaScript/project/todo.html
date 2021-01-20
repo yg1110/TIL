@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <div class="todo-list">
+
+    </div>
+</head>
+
+<body>
+
+</body>
+<script>
+    let todolist = document.querySelector(".todo-list");
+
+    let list = ["a", "b"];
+    list.forEach((v, i) => {
+        let a = todolist.append(document.createElement("div"));
+        console.log("div:nth-child(" + i + ")")
+        a.appendChild(document.createTextNode(v));
+    })
+    console.log(todolist);
+
+</script>
+
+</html>
