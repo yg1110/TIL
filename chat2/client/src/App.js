@@ -1,17 +1,24 @@
 import './App.css';
-import {useEffect} from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { setWebSocket} from './modules/socketReducer';
 
 function App() {
-  const socketTest = () => {
-    const ws = new WebSocket('ws://localhost:3002');
-    
-    ws.onopen = (event) => {
-      console.log(event);
-      let sendData = {
-        event: 'request',
-        data: 'some data...'
-      };
-      ws.send(JSON.stringify(sendData));
+  let ws = null;
+  const dispatch = useDispatch();
+  const socket = useSelector(state => ({
+    webSocket: state.socketReducer.webSocket
+  }));
+
+
+  const onWebSocket = (callback) => {
+    ws = new WebSocket('ws://localhost:3002');
+
+    ws.onopen = () => {
+      callback(true);
+    }
+
+    ws.onerror = () => {
+      callback(false);
     }
 
     ws.onmessage = (event) => {
@@ -24,21 +31,31 @@ function App() {
           break;
       }
     }
-
-    test("test", () => console.log("callback"));
   }
 
-  const test = (data, callback) => {
-    console.log(data);
-    callback()
-  };
+  const onSendMessage = (state) => {
+    if(state){
+      dispatch(setWebSocket(ws))
+      let sendData = {
+        event: 'request',
+        data: 'Test'
+      };
+      socket.webSocket.send(JSON.stringify(sendData));
+    }else{
+      console.log("error");
+    }
+  }
 
-  useEffect(()=> {
-    socketTest();
-  })
+  const onClickSendMessage = () => {
+    onWebSocket(onSendMessage);
+  }
 
   return (
-    <div className="App"/>
+    <div className="App">
+      <button onClick={onClickSendMessage}>
+        sendMessage
+      </button>
+    </div>
   );
 }
 
